@@ -1,0 +1,11 @@
+FROM debian:12
+# Mettre à jour les packages et installez Apache
+RUN apt-get update && \
+    apt-get install -y apache2 && \
+    apt-get clean
+# Copier les fichiers dans le répertoire /var/www/html
+COPY ./page_statique /var/www/html/
+# Exposer le port 80 pour Apache
+EXPOSE 80
+# Commande pour démarrer Apache au lancement du conteneur
+CMD ["apache2ctl", "-D", "FOREGROUND"]
