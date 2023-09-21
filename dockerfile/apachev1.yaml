@@ -1,4 +1,24 @@
-FROM debian:12
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: page_statique
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - image: debian:12
+        name: pageapache
+        ports:
+        - containerPort: 80
+
 # Mettre à jour les packages et installez Apache
 RUN apt-get update && \
     apt-get install -y apache2 && \
@@ -9,3 +29,4 @@ COPY ./page_statique /var/www/html/
 EXPOSE 80
 # Commande pour démarrer Apache au lancement du conteneur
 CMD ["apache2ctl", "-D", "FOREGROUND"]
+        
