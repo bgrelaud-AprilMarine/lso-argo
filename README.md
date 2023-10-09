@@ -1,2 +1,2 @@
 # lso-argo
- + comprétence argo
+ + compétence argo
